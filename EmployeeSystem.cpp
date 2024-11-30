@@ -66,14 +66,8 @@ int UpdateSalaryByName(stEmpSystem& stEmp)
 	return -1;
 }
 
-int GetIndex(stEmpSystem EmpSys)
+int GetIndex(stEmpSystem EmpSys, int initValue, int finValue)
 {
-	int initValue, finValue;
-	cout << "\nEnter init age: ";
-	cin >> initValue;
-	cout << "Enter final age: ";
-	cin >> finValue;
-
 	for (int i = 0; i < EmpSys.Repeated; i++)
 	{
 		if (EmpSys.EmployeeList[i].age > initValue && EmpSys.EmployeeList[i].age < finValue)
@@ -85,11 +79,20 @@ int GetIndex(stEmpSystem EmpSys)
 
 void DeleteByAge(stEmpSystem& EmpSys)
 {
-	for (int i= GetIndex(EmpSys); i < EmpSys.Repeated ; i++)
+	int initValue, finValue;
+	cout << "\nEnter init age: ";
+	cin >> initValue;
+	cout << "Enter final age: ";
+	cin >> finValue;
+
+	for (int j = 0; j < EmpSys.Repeated; j++)
 	{
-		EmpSys.EmployeeList[i] = EmpSys.EmployeeList[i + 1];
+		for (int i = GetIndex(EmpSys, initValue, finValue); i < EmpSys.Repeated; i++)
+		{
+			EmpSys.EmployeeList[i] = EmpSys.EmployeeList[i + 1];
+		}
+		EmpSys.Repeated--;
 	}
-	EmpSys.Repeated--;
 }
 
 void DisplayScreen()
